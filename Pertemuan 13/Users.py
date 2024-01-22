@@ -9,7 +9,7 @@ class Users:
         self.__level= None
         self.__uservalid = None
         self.__passwordvalid = None
-        self.__loginvalid = None
+        self.__loginvalid = None#
         self.conn = None
         self.affected = None
         self.result = None
@@ -17,7 +17,7 @@ class Users:
     @property
     def id(self):
         return self.__id
-    
+
     @property
     def email(self):
         return self.__email
@@ -33,7 +33,7 @@ class Users:
     @nama.setter
     def nama(self, value):
         self.__nama = value
-    
+
     @property
     def password(self):
         return self.__password
@@ -41,7 +41,7 @@ class Users:
     @password.setter
     def password(self, value):
         self.__password = value
-    
+
     @property
     def level(self):
         return self.__level
@@ -49,7 +49,7 @@ class Users:
     @level.setter
     def level(self, value):
         self.__level = value
-    
+
     @property
     def loginvalid(self):
         return self.__loginvalid
@@ -77,7 +77,7 @@ class Users:
             self.affected = 0
             self.__uservalid = False
         return self.__uservalid
-    
+
     def cekPassword(self, password):
         hashedpass=self.__password.encode('utf-8')
         c = password.encode('utf-8')
@@ -87,15 +87,37 @@ class Users:
         else:
             self.__passwordvalid=False
         return self.__passwordvalid
-        
+
     def Validasi(self, email, password):
         a = self.cekUsername(email)
-        b = self.cekPassword(password)
-        if(a==True and b==True):
-            self.__loginvalid=True
+        if(a==True):
+            b = self.cekPassword(password)
+            if(b==True):
+                self.__loginvalid=True
+            else:
+                self.__loginvalid=False
         else:
             self.__loginvalid=False
+
         val = []
         val = [self.__level, self.__loginvalid]
         return val
 
+# A = Users()
+# print("\n\n")
+# print("Username BENAR, dan password BENAR")
+# B = A.Validasi('nurjati@umc.ac.id','123')
+# print(B)
+
+# print("\n\nUsername BENAR, dan password SALAH")
+# C = A.Validasi('nurjati@umc.ac.id','1234')
+# print(C)
+
+# print("\n\nUsername SALAH, dan password BENAR")
+# D = A.Validasi('baim@umc.ac.id','123')
+# print(D)
+
+# print("\n\nUsername SALAH, dan password SALAH")
+# E = A.Validasi('baim@umc.ac.id','1234')
+# print(E)
+# print("\n\n")
